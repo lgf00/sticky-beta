@@ -50,8 +50,7 @@ function App() {
         res.json().then(res => setItems(res.items))
       } else if (res.status === 429) {
         const retry_after = res.headers['Retry-After'] + 1
-        setTimeout('', retry_after * 1000);
-        getItems();
+        setTimeout(getItems(), retry_after * 1000);
         console.log("RATE LIMITED", res.status, retry_after)
       } else if (res.status === 401) {
         console.log("ERROR AUTH", res.status)
@@ -64,10 +63,6 @@ function App() {
       getItems()
     }
   }, [token])
-
-  useEffect(() => {
-    console.log("items:", items)
-  }, [items])
 
   return (
     <div className="App">

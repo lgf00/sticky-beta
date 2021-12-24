@@ -1,7 +1,7 @@
 function Login(props) {
     const authEndpoint = "https://accounts.spotify.com/authorize";
     const clientId = "3bebcbc76113406eadcaeb5051d437ad";
-    const redirectUri = "http://localhost:3000";
+    const redirectUri = "https://lgf00.github.io/sticky-beta/";
     const scopes = [
       "user-read-private",
       "user-read-email",
