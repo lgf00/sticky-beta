@@ -24,17 +24,9 @@ function App() {
     return text;
   };
 
-  const [token] = useState(hash.access_token)
+  const [token, updateToken] = useState(hash.access_token)
   const [state, setState] = useState(localStorage.getItem("state"))
   const [items, setItems] = useState(null)
-
-  useEffect(() => {
-    if (!state) {
-      let _state = generateRandomString(16)
-      setState(_state)
-      localStorage.setItem('state', _state)
-    }
-  }, [state])
 
   const getItems = () => {
     console.log("fetching items")
@@ -47,16 +39,26 @@ function App() {
       },
     }).then(res => {
       if (res.status === 200) {
+        console.log(res.status)
         res.json().then(res => setItems(res.items))
       } else if (res.status === 429) {
         const retry_after = res.headers['Retry-After'] + 1
         setTimeout(getItems(), retry_after * 1000);
-        console.log("RATE LIMITED", res.status, retry_after)
+        console.log("RATE LIMITED", res.status, retry_after);
       } else if (res.status === 401) {
-        console.log("ERROR AUTH", res.status)
+        console.log("ERROR AUTH", res.status);
+        updateToken(null);
       }
     })
   }
+
+  useEffect(() => {
+    if (!state) {
+      let _state = generateRandomString(16)
+      setState(_state)
+      localStorage.setItem('state', _state)
+    }
+  }, [state])
 
   useEffect(() => {
     if (token) {
@@ -65,15 +67,22 @@ function App() {
   }, [token])
 
   return (
-    <div className="App">
-      {!token && (
-        <Login state={state}/>
-      )}
-      {items && (
-        items.map((item, i) => (
-          <h1 key={i}>{item.name}</h1>
-        )
-        ))}
+    <div className="container2">
+      <div className="header">
+        <h1>sticky-beta</h1>
+      </div>
+      <div className="content">
+        {!token && (
+          <Login state={state}/>
+        )}
+        {token && items && (
+          <div className="list">
+          {items.map((item, i) => (
+            <h1 key={i}>{item.name}</h1>
+          ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
