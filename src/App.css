@@ -3,7 +3,7 @@ body {
 }
 
 .header {
-  
+  display: flex;
   color: red;
   padding: 10px;
   position: relative;
@@ -17,11 +17,31 @@ body {
   display: flex;
   height: calc(100vh - 63px);
   width: 100vw;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
-.list {
-  
+.generate, .tr_buttons {
+  margin-right: min(20vw, 300px);
+  margin-left: min(20vw, 300px);
+}
+
+.tr_button {
+  background-color: #1db9547c;
+  font-size: 30px;
+  padding: 10px;
+  margin-right: 40px;
+  margin-top: 20px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+.tr_button:hover {
+  background-color: #1DB954;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #1DB954;
 }

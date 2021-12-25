@@ -12,11 +12,14 @@ function Login(props) {
       "user-top-read",
     ];
     const state = props.state
-
+    const query = `?response_type=token&client_id=${clientId}&scope=${scopes.join("%20")}&redirect_uri=${redirectUri}&state=${state}`
     return (
-        <a href={`${authEndpoint}?response_type=token&client_id=${clientId}&scope=${scopes.join("%20")}&redirect_uri=${redirectUri}&state=${state}`}>
-            Connect Your Spotify
-        </a>
+        <>
+            <p>{props.errorMessage}</p>
+            <a href={`${authEndpoint}${query}`}>
+                Connect Your Spotify
+            </a>
+        </>
     )
 }
 

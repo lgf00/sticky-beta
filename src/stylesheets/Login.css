@@ -6,4 +6,7 @@ a {
     font-size: 30px;
     border: 5px solid black;
     border-radius: 10px;
+    align-self: center;
+    margin-top: calc(40vh - 63px);
 }
+
